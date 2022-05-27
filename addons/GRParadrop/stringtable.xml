@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project name="NIC_GRP">
+    <Package name="UGV_ENH">
+		<Key ID="STR_NIC_GRP_TITLE_VERSION">
+			<Original>Ready Units Paradrop v1.0</Original>
+			<German>Vorbeteiten Einheiten Paradrop v1.0</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_TITLE">
+			<Original>NIC Ready Units Paradrop</Original>
+			<German>NICVorbeteiten Einheiten Paradrop</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_PILOTS">
+			<Original>Pilots</Original>
+			<German>Piloten</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_PILOTS_TIP">
+			<Original>Pilots will also get ready for paradropping.</Original>
+			<German>Piloten bereiten sich ebenfalls vor für Paradropping.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_COPILOTS">
+			<Original>Copilots</Original>
+			<German>Copiloten</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_COPILOTS_TIP">
+			<Original>Copilots will also get ready for paradropping.</Original>
+			<German>Copiloten bereiten sich ebenfalls vor für Paradropping.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_GET_READY">
+			<Original>Everyone Get Ready For Paradropping</Original>
+			<German>Alle Zum Paradrop Bereitmachen</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_SET_LOCATION">
+			<Original>Set Paradrop Location</Original>
+			<German>Paradrop Ort Auswählen</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_VEH_PARA">
+			<Original>Vehicle Parachute</Original>
+			<German>Fahrzeugfallschirm</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_ATTACH_VEH_PARA">
+			<Original>Attach Vehicle Parachute</Original>
+			<German>Fahrzeugfallschirm Anbringen</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_DETACH_VEH_PARA">
+			<Original>Detach Vehicle Parachute</Original>
+			<German>Fahrzeugfallschirm Entfernen</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_DEPLOY_HEIGHT">
+			<Original>Vehicle Parachute Deploy Height</Original>
+			<German>Fahrzeugfallschirm Auslösehöhe</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_DEPLOY_HEIGHT_TIP">
+			<Original>Height in meters, at which the vehicle parachute will be deployed.</Original>
+			<German>Höhe in Meter, in welcher der Fahrzeugfallschirm ausgelöst wird.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_TOO_LIGHT">
+			<Original>Cargo too light (%1) for vehicle parachute. Minimal weight: %2.</Original>
+			<German>Last zu leicht (%1) für Fahrzeugfallschirm. Minimalgewicht: %2.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_TOO_HEAVY">
+			<Original>Cargo too heavy (%1) for vehicle parachute. Maximum weight: %2.</Original>
+			<German>Last zu schwer (%1) für Fahrzeugfallschirm. Maximalgewicht: %2.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_DEPLOY_SUB">
+			<Original>Vehicle Parachute Settings</Original>
+			<German>Fahrzeugfallschirm Einstellungen</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_DEPLOY_INF">
+			<Original>Infantry Paradrop Settings</Original>
+			<German>Infanterie Paradrop Einstellungen</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_OVERIDE">
+			<Original>Manual Deploy Height</Original>
+			<German>Manuelle Auslösehöhe</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_OVERIDE_TIP">
+			<Original>Override automatic calculation of parachute deployment height with value listed below.</Original>
+			<German>Automatische Berrechnung der Auslösehöhe mit unten stehendem Wert überschreiben.</German>
+		</Key>
+	</Package>
+</Project>

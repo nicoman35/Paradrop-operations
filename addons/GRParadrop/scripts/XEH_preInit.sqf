@@ -10,7 +10,7 @@
 	"NIC_GRP_copilotsReady",
 	"CHECKBOX",
 	[localize "STR_NIC_GRP_COPILOTS", localize "STR_NIC_GRP_COPILOTS_TIP"],
-	localize "STR_NIC_GRP_TITLE",
+	[localize "STR_NIC_GRP_TITLE", localize "STR_NIC_GRP_DEPLOY_INF"],
 	false,
     true
 ] call CBA_fnc_addSetting;
@@ -26,7 +26,7 @@
 	"NIC_GRP_vehicleParachuteDeployheight",
 	"SLIDER",
 	[localize "STR_NIC_GRP_DEPLOY_HEIGHT", localize "STR_NIC_GRP_DEPLOY_HEIGHT_TIP"],
-	localize "STR_NIC_GRP_TITLE", 
+	[localize "STR_NIC_GRP_TITLE", localize "STR_NIC_GRP_DEPLOY_SUB"],
 	[80, 800, 200, 0],																			// data for this setting: [_min, _max, _default, _trailingDecimals]
     true,
 	{NIC_GRP_vehicleParachuteDeployheight = round(NIC_GRP_vehicleParachuteDeployheight)}	// code executed on option changed AND on init

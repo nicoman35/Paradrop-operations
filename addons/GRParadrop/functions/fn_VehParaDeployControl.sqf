@@ -38,13 +38,23 @@ if (isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) exitWith {};		// Exi
 
 _vehicle spawn NIC_GRP_fnc_HandleFallDamage;									// Iniciate damage control
 
+
+
+
+
+
 // Vehicle is now free falling, let's calculate parachute deployment height
 private _vehicleMass = getMass _vehicle;
 private _deployHeight = round(((_vehicleMass / 1000) max 1) * 120) min 900;  									// 120 - 900
 _deployHeight = (((((getPos _vehicle #2 - _deployHeight) min 1200) / 1200) min 1) max 0.3) * _deployHeight;		// fail
 
+
+
+
+
+
 if (NIC_GRP_deployOverride) then {	_deployHeight = NIC_GRP_vehicleParachuteDeployheight};
-diag_log formatText ["%1%2%3%4%5%6%7", time, "s (NIC_GRP_fnc_VehParaDeployControl)  _deployHeight: ", _deployHeight];
+// diag_log formatText ["%1%2%3%4%5%6%7", time, "s (NIC_GRP_fnc_VehParaDeployControl)  _deployHeight: ", _deployHeight];
 
 // Control fall speed and height until vehicle is lower then deploy height
 private _sleep = 1;

@@ -50,8 +50,8 @@
 			<German>Fahrzeugfallschirm Auslösehöhe</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_DEPLOY_HEIGHT_TIP">
-			<Original>Height in meters, at which the vehicle parachute will be deployed.</Original>
-			<German>Höhe in Meter, in welcher der Fahrzeugfallschirm ausgelöst wird.</German>
+			<Original>Height in meters, at which the vehicle parachute will be deployed. Only valid, if 'Override Automatic Deploy Height' is checked.</Original>
+			<German>Höhe in Meter, in welcher der Fahrzeugfallschirm ausgelöst wird. Nur gülitg, wenn 'Automatische Auslösehöhe Aufheben' ausgewählt ist.</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_TOO_LIGHT">
 			<Original>Cargo too light (%1) for vehicle parachute. Minimal weight: %2.</Original>
@@ -70,12 +70,40 @@
 			<German>Infanterie Paradrop Einstellungen</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_OVERIDE">
-			<Original>Manual Deploy Height</Original>
-			<German>Manuelle Auslösehöhe</German>
+			<Original>Override Automatic Deploy Height</Original>
+			<German>Automatische Auslösehöhe Aufheben</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_OVERIDE_TIP">
 			<Original>Override automatic calculation of parachute deployment height with value listed below.</Original>
 			<German>Automatische Berrechnung der Auslösehöhe mit unten stehendem Wert überschreiben.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_ATTENTION">
+			<Original>ATTENTION!</Original>
+			<German>ACHTUNG!</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_ATTENTION2">
+			<Original>Cargo ropes of loads with an attached vehicle parachute have to be at least 30 m long.</Original>
+			<German>Lastseile von Ladungen mit einem daran befestigten Fahrzeugfallschirm müssen mindestens 30 m lang sein.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_SECURITY_FACTOR">
+			<Original>Automatic Deploy Height</Original>
+			<German>Automatische Auslösehöhe</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_SECURITY_FACTOR_TIP">
+			<Original>Type of automatic calculation of parachute deployment height.</Original>
+			<German>Art der automatischen Berrechnung der Auslösehöhe.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_DEPLOY_FACTOR0">
+			<Original>Sportive</Original>
+			<German>Sportlich</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_DEPLOY_FACTOR1">
+			<Original>Normal</Original>
+			<German>Normal</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_DEPLOY_FACTOR2">
+			<Original>Safe</Original>
+			<German>Sicher</German>
 		</Key>
 	</Package>
 </Project>

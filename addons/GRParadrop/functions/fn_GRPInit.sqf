@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_GRPInit
 	Version: 		1.0
-	Edited Date: 	27.05.2022
+	Edited Date: 	29.05.2022
 	
 	Description:
 		Initiate addon, define CBA variables, add init event handler to all infantry units
@@ -22,9 +22,10 @@ if (isNil "NIC_GRP_parachuteHeight") then {NIC_GRP_parachuteHeight 							= 80};
 if (isNil "NIC_GRP_attachDistance") then {NIC_GRP_attachDistance 								= 7};					// distance in, below which attaching vehicle parachute is possible (m)
 if (isNil "NIC_GRP_attachMinMass") then {NIC_GRP_attachMinMass 								= 250};					// minimum mass a vehicle has to have for being able to attach the vehicle parachute (kg)
 if (isNil "NIC_GRP_attachMaxMass") then {NIC_GRP_attachMaxMass 								= 80000};				// maximum mass a vehicle has to have for being able to attach the vehicle parachute (kg)
-if (isNil "NIC_GRP_vehicleParachuteDeployheight") then {NIC_GRP_vehicleParachuteDeployheight 	= 200};					// height at which vehicle parachute is to be deployed (m)
+if (isNil "NIC_GRP_vehicleParachuteDeployHeight") then {NIC_GRP_vehicleParachuteDeployHeight 	= 200};					// height at which vehicle parachute is to be deployed (m)
 if (isNil "NIC_GRP_maxFallSpeed") then {NIC_GRP_maxFallSpeed 									= 130};					// max fall speed of vehicles (m/s)
 if (isNil "NIC_GRP_deployOverride") then {NIC_GRP_deployOverride 								= false};				// override automatic calculation of parachute deployment height
+if (isNil "NIC_GRP_securityFactor") then {NIC_GRP_securityFactor 								= 1.05};				// factor times (calculation of needed distance for vehicle parachute to break a load)
 
 // Parachutes to be used
 // NIC_GRP_parachutes = [

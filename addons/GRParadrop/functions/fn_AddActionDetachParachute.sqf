@@ -2,13 +2,13 @@
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_AddActionDetachParachute
 	Version: 		1.0
-	Edited Date: 	24.05.2022
+	Edited Date: 	27.05.2022
 	
 	Description:
 		Add 'Dettach Vehicle Parachute' action to a vehicle
 	
 	Parameters:
-		_vehicle:		Object - vehicle to which action will be added, defauts to objNull
+		_vehicle:	Object - vehicle to which action will be added, defauts to objNull
 	
 	Returns:
 		None

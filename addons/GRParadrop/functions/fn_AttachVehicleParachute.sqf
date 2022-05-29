@@ -25,9 +25,6 @@ if (_mass > 1000) then {_strg = format ["%1 t", _mass / 1000 toFixed 1]};
 if (_mass < NIC_GRP_attachMinMass) exitWith {hint format[localize "STR_NIC_GRP_TOO_LIGHT", _strg, format ["%1 kg", NIC_GRP_attachMinMass]]};
 if (_mass > NIC_GRP_attachMaxMass) exitWith {hint format[localize "STR_NIC_GRP_TOO_HEAVY", _strg, format ["%1 t", NIC_GRP_attachMaxMass / 1000 toFixed 1]]};
 private _vehicleOffsets = [_vehicle, [0, 0, 0]];
-// {
-	// if (typeof _vehicle == _x #0) exitWith {_vehicleOffsets = [_vehicle, _x #1]};
-// } forEach NIC_GRP_vehicles;
 {
 	if (_vehicle isKindOf _x #0) exitWith {_vehicleOffsets = [_vehicle, _x #1]};
 } forEach NIC_GRP_vehicles;

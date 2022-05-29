@@ -15,6 +15,23 @@
     true
 ] call CBA_fnc_addSetting;
 [
+	"NIC_GRP_securityFactor",
+	"LIST",
+	[localize "STR_NIC_GRP_SECURITY_FACTOR", localize "STR_NIC_GRP_SECURITY_FACTOR_TIP"],	
+	[localize "STR_NIC_GRP_TITLE", localize "STR_NIC_GRP_DEPLOY_SUB"],
+	[		
+		// [0, 1, 2],
+		[1.03, 1.05, 1.07],		// list setting return values
+		[
+			format[localize "STR_NIC_GRP_DEPLOY_FACTOR0"], 
+			format[localize "STR_NIC_GRP_DEPLOY_FACTOR1"], 
+			format[localize "STR_NIC_GRP_DEPLOY_FACTOR2"]
+		],																						// list setting choices
+		1																						// list setting default choice (array index)
+	],
+	true
+] call CBA_fnc_addSetting;
+[
 	"NIC_GRP_deployOverride",
 	"CHECKBOX",
 	[localize "STR_NIC_GRP_OVERIDE", localize "STR_NIC_GRP_OVERIDE_TIP"],
@@ -23,11 +40,11 @@
     true
 ] call CBA_fnc_addSetting;
 [
-	"NIC_GRP_vehicleParachuteDeployheight",
+	"NIC_GRP_vehicleParachuteDeployHeight",
 	"SLIDER",
 	[localize "STR_NIC_GRP_DEPLOY_HEIGHT", localize "STR_NIC_GRP_DEPLOY_HEIGHT_TIP"],
 	[localize "STR_NIC_GRP_TITLE", localize "STR_NIC_GRP_DEPLOY_SUB"],
 	[80, 800, 200, 0],																			// data for this setting: [_min, _max, _default, _trailingDecimals]
     true,
-	{NIC_GRP_vehicleParachuteDeployheight = round(NIC_GRP_vehicleParachuteDeployheight)}	// code executed on option changed AND on init
+	{NIC_GRP_vehicleParachuteDeployHeight = round(NIC_GRP_vehicleParachuteDeployHeight)}	// code executed on option changed AND on init
 ] call CBA_fnc_addSetting;

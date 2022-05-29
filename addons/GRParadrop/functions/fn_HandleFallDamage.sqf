@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_HandleFallDamage
 	Version: 		1.0
-	Edited Date: 	26.05.2022
+	Edited Date: 	29.05.2022
 	
 	Description:
 		Handle vehicle damage due to impact with high velocity
@@ -26,6 +26,15 @@ private ["_velocity"];
 // private _vy = 35 - random 70;
 // _velocity = _velocity vectorAdd  [_vx, _vy, 0];
 // _vehicle setVelocity _velocity;
+
+
+
+_vehicle addEventHandler ["EpeContact", {
+	params ["_object1", "_object2", "_selection1", "_selection2", "_force"];
+	_velocity = velocity _object1;
+	diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_HandleFallDamage)  _object1: ", _object1, ", _object2: ", _object2, ", velocity: ", _velocity #2, ", _force: ", _force];
+	_object1 removeEventHandler [_thisEvent, _thisEventHandler];
+}];
 
 private _sleep = 1;
 private _finalHeight = 0.5;

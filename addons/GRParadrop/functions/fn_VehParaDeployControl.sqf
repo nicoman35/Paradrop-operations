@@ -21,7 +21,7 @@ if !(local _vehicle) exitWith {_this remoteExec [NIC_GRP_fnc_VehParaDeployContro
 if (!alive _vehicle) exitWith {};
 
 // Vehicle parachute is attached to vehicle, wait for vehicle free fall
-private _hint = true;
+private _hint = 0;
 while {
 	alive _vehicle &&
 	!(isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) &&
@@ -32,17 +32,17 @@ while {
 	velocity _vehicle #2 > -10 ||
 	!(isNull ropeAttachedTo _vehicle))} 
 do {
-	if (!(isNull ropeAttachedTo _vehicle) && _hint) then {
+	if (!(isNull ropeAttachedTo _vehicle) && _hint < 2) then {
 		hint composeText [localize "STR_NIC_GRP_ATTENTION", lineBreak, localize "STR_NIC_GRP_ATTENTION2"];
-		_hint = false;
+		_hint = _hint + 1;
 	};
 	sleep 1;
 };
 // diag_log formatText ["%1%2%3%4%5%6", time, "s (NIC_GRP_fnc_VehParaDeployControl)	 FALL DETECTED"];
 
-if (isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) exitWith {};		// Exit, if no attached vehicle parachute found
+if (isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) exitWith {};													// Exit, if no attached vehicle parachute found
 
-_vehicle spawn NIC_GRP_fnc_HandleFallDamage;									// Iniciate damage control
+_vehicle spawn NIC_GRP_fnc_HandleFallDamage;																				// Iniciate damage control
 
 private ["_velocity", "_t"];
 
@@ -64,9 +64,11 @@ while {alive _vehicle && getPos _vehicle #2 > _deployHeight} do {
 		// hintSilent formatText ["%1%2%3%4%5%6%7", " speed: ", abs(_velocity #2)];		
 		_t = -(10 - abs(_velocity #2)) / (18 - _massFactor);  																// t = (v - v0) / a; time vehicle would need to reduce current fall speed to 10 m/s
 		_deployHeight = (0.5 * (18 - _massFactor) * _t^2 + abs(_velocity #2) * _inflatingTime) * NIC_GRP_securityFactor;	// s = 0,5 · a · t^2 + v · tInf; height parachute would need to sucessfully break vehicle's fall
-		if (abs(_velocity #2) < NIC_GRP_maxFallSpeed - 3) then {_deployHeight = _deployHeight * NIC_GRP_securityFactor};
+		if (abs(_velocity #2) < NIC_GRP_maxFallSpeed - 3) then {
+			_deployHeight = _deployHeight * NIC_GRP_securityFactor;
+			if (getPos _vehicle #2 < 300) then {_deployHeight = _deployHeight * (NIC_GRP_securityFactor + (20 / getPos _vehicle #2))};
+		};
 	};
-	// if (getPos _vehicle #2 - _deployHeight < abs(_velocity #2 * 2)) then {_sleep = 0.01};
 	sleep 0.01;
 };
 // diag_log formatText ["%1%2%3%4%5%6%7", time, "s (NIC_GRP_fnc_VehParaDeployControl)  _deployHeight: ", _deployHeight]; 

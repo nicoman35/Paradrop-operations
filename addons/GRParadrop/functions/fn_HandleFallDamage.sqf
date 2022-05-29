@@ -27,14 +27,17 @@ private ["_velocity"];
 // _velocity = _velocity vectorAdd  [_vx, _vy, 0];
 // _vehicle setVelocity _velocity;
 
-
-
-_vehicle addEventHandler ["EpeContact", {
-	params ["_object1", "_object2", "_selection1", "_selection2", "_force"];
-	_velocity = velocity _object1;
-	diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_HandleFallDamage)  _object1: ", _object1, ", _object2: ", _object2, ", velocity: ", _velocity #2, ", _force: ", _force];
-	_object1 removeEventHandler [_thisEvent, _thisEventHandler];
-}];
+if (isNil {_vehicle getVariable "NIC_GRP_fallDamageContact"}) then {
+	private _event = _vehicle addEventHandler ["EpeContact", {
+		params ["_object1", "_object2", "_selection1", "_selection2", "_force"];
+		_velocity = velocity _object1;
+		diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_HandleFallDamage)  _object1: ", _object1, ", _object2: ", _object2, ", velocity: ", _velocity #2, ", _force: ", _force];
+		_object1 removeEventHandler [_thisEvent, _thisEventHandler];
+		_object1 setVariable ["NIC_GRP_fallDamageContact", nil];
+	}];
+	// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_HandleFallDamage)  _event: ", _event];
+	_vehicle setVariable ["NIC_GRP_fallDamageContact", _event];
+};
 
 private _sleep = 1;
 private _finalHeight = 0.5;
@@ -76,5 +79,13 @@ if (surfaceIsWater position _vehicle) then {
 if (_damage > 1) then {_damage = 1};
 // diag_log formatText ["%1%2%3%4%5", time, "s (NIC_GRP_fnc_HandleFallDamage)  total damage: ", _damage];
 _vehicle setDamage (getDammage _vehicle + _damage);
+
+// Remove event handler after fall is complete
+if !(isNil {_vehicle getVariable "NIC_GRP_fallDamageContact"}) then {
+	private _event = _vehicle getVariable "NIC_GRP_fallDamageContact";
+	_vehicle removeEventHandler ["EpeContact", _event];
+	_vehicle setVariable ["NIC_GRP_fallDamageContact", nil];
+};
+
 // }; 
 // [cursorObject] spawn NIC_GRP_fnc_HandleFallDamage;

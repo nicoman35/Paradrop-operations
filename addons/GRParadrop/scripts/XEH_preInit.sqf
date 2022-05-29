@@ -20,8 +20,7 @@
 	[localize "STR_NIC_GRP_SECURITY_FACTOR", localize "STR_NIC_GRP_SECURITY_FACTOR_TIP"],	
 	[localize "STR_NIC_GRP_TITLE", localize "STR_NIC_GRP_DEPLOY_SUB"],
 	[		
-		// [0, 1, 2],
-		[1.03, 1.05, 1.07],		// list setting return values
+		[1.03, 1.05, 1.07],																		// list setting return values
 		[
 			format[localize "STR_NIC_GRP_DEPLOY_FACTOR0"], 
 			format[localize "STR_NIC_GRP_DEPLOY_FACTOR1"], 

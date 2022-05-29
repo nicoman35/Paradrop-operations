@@ -40,9 +40,9 @@ do {
 };
 // diag_log formatText ["%1%2%3%4%5%6", time, "s (NIC_GRP_fnc_VehParaDeployControl)	 FALL DETECTED"];
 
-if (isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) exitWith {};													// Exit, if no attached vehicle parachute found
+if (isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) exitWith {};		// Exit, if no attached vehicle parachute found
 
-_vehicle spawn NIC_GRP_fnc_HandleFallDamage;																				// Iniciate damage control
+_vehicle spawn NIC_GRP_fnc_HandleFallDamage;									// Iniciate damage control
 
 private ["_velocity", "_t"];
 
@@ -90,13 +90,21 @@ _parachute setPos getPos _vehicle;
 _parachute setVelocity _velocity;
 _vehicle attachTo [_parachute, [0, 0, 1]];
 private _height = getPos _vehicle #2;
-// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_VehParaDeployControl)  parachute deploy initiated.  speed at deploy: ", abs(_velocity #2), " m/s , height at deploy: ", _height, " m, mass: ", getMass _vehicle];
+// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_VehParaDeployControl)  parachute deploy initiated.  _velocity at deploy: ", _velocity, ", height at deploy: ", _height, " m, mass: ", getMass _vehicle];
 
-// Simulate fall breaking after parachute opening
+// Simulate fall braking after parachute opening
 sleep _inflatingTime; 																										// parachute inflating phase
 private _sleep = 0.05;
 while {_velocity #2 < -10} do {
-	_velocity set [2, (18 - _massFactor) * _sleep + _velocity #2]; 															// v = a · t + v0
+	if (abs(_velocity #0) > 5) then {
+		if (_velocity #0 > 0) exitWith {_velocity set [0, -(18 - _massFactor) * _sleep + _velocity #0]};
+		_velocity set [0, (18 - _massFactor) * _sleep + _velocity #0];
+	};																														// horrizontal brake x axis (v = a · t + Xv0)									// horrizontal brake x axis (v = a · t + Xv0)
+	if (abs(_velocity #1) > 5) then {
+		if (_velocity #1 > 0) exitWith {_velocity set [1, -(18 - _massFactor) * _sleep + _velocity #1]};
+		_velocity set [1, (18 - _massFactor) * _sleep + _velocity #1];
+	};																														// horrizontal brake y axis (v = a · t + Yv0)
+	_velocity set [2, (18 - _massFactor) * _sleep + _velocity #2]; 															// vertical brake z axis (v = a · t + Zv0)
 	_parachute setVelocity _velocity;
 	if (getPos _vehicle #2 < 4 || !alive _vehicle) exitWith {};
 	sleep _sleep;

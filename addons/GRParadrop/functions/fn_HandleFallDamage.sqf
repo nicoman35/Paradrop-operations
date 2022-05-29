@@ -88,4 +88,3 @@ if !(isNil {_vehicle getVariable "NIC_GRP_fallDamageContact"}) then {
 };
 
 // }; 
-// [cursorObject] spawn NIC_GRP_fnc_HandleFallDamage;

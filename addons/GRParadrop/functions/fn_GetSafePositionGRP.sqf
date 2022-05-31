@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_GetSafePositionGRP
 	Version: 		1.0
-	Edited Date: 	22.05.2022
+	Edited Date: 	30.05.2022
 	
 	Description:
 		Search a safe position. Center position either given special paradrop marker, or unit itself, if no marker was set
@@ -16,7 +16,7 @@
 */
 
 // NIC_GRP_fnc_GetSafePositionGRP = {
-params [["_unit", objNull], ["_maxDist", 25]];
+params [["_unit", objNull], ["_maxDist", 30]];
 if (isNull _unit) exitWith {};
 if !(local _unit) exitWith {_this remoteExecCall [NIC_GRP_fnc_GetSafePositionGRP, _unit]};
 
@@ -26,15 +26,15 @@ if (getMarkerType "NIC_GRP_Objective" != "") then {
 	_center 	= getMarkerPos "NIC_GRP_Objective";	
 };
 
-private _minDist 	= 0;																		// minimum distance from the center position
+private _minDist 		= 0;																	// minimum distance from the center position
 private _minDistWater 	= 3;		
 if (_maxDist == 0) then {
 	_maxDist 		= getpos _unit select 2;													// maximum distance from the center position
 	_minDistWater 	= 20;
 };
-private _objDist 	= 2; 																		// minimum distance from the resulting position to the center of nearest object
-private _waterMode 	= 0; 																		// 0: cannot be in water, 1: can either be in water or not, 2: must be in water
-private _maxGrad	= 30; 																		// maximum terrain gradient (hill steepness)
+private _objDist 		= 2; 																	// minimum distance from the resulting position to the center of nearest object
+private _waterMode 		= 0; 																	// 0: cannot be in water, 1: can either be in water or not, 2: must be in water
+private _maxGrad		= 30; 																	// maximum terrain gradient (hill steepness)
 
 private _safePos = [_center, _minDist, _maxDist, _objDist, _waterMode, _maxGrad] call BIS_fnc_findSafePos;
 while {_center distance _safePos > _maxDist && _maxDist < 2000} do {

@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_GRPInit
 	Version: 		1.0
-	Edited Date: 	29.05.2022
+	Edited Date: 	30.05.2022
 	
 	Description:
 		Initiate addon, define CBA variables, add init event handler to all infantry units
@@ -18,7 +18,7 @@ if (format[localize "STR_BOCR_Main_ModuleAdd_Displayname"] == "") exitWith {};		
 
 if (isNil "NIC_GRP_pilotsReady") then {NIC_GRP_pilotsReady 									= false};				// should pilots also get ready for paradropping?
 if (isNil "NIC_GRP_copilotsReady") then {NIC_GRP_copilotsReady 								= false};				// should copilots also get ready for paradropping?
-if (isNil "NIC_GRP_parachuteHeight") then {NIC_GRP_parachuteHeight 							= 80};					// height in, above which halo jumping units will be given a parachute (m)
+if (isNil "NIC_GRP_parachuteHeight") then {NIC_GRP_parachuteHeight 							= 120};					// minimal height at which halo jumping units will be given a parachute (m)
 if (isNil "NIC_GRP_attachDistance") then {NIC_GRP_attachDistance 								= 7};					// distance in, below which attaching vehicle parachute is possible (m)
 if (isNil "NIC_GRP_attachMinMass") then {NIC_GRP_attachMinMass 								= 250};					// minimum mass a vehicle has to have for being able to attach the vehicle parachute (kg)
 if (isNil "NIC_GRP_attachMaxMass") then {NIC_GRP_attachMaxMass 								= 80000};				// maximum mass a vehicle has to have for being able to attach the vehicle parachute (kg)
@@ -40,19 +40,24 @@ NIC_GRP_vehicles = [
 
 ["CAManBase", "init", {
 	params ["_unit"];
-	[_unit] spawn NIC_GRP_fnc_AddActionGRP;
+	// [_unit] spawn NIC_GRP_fnc_AddActionGRP;
 	[_unit] spawn NIC_GRP_fnc_AddActionAttachParachute;
 }, true] call CBA_fnc_addClassEventHandler;
 
-["CAManBase", "GetInMan", {
-	params ["_unit"];
-	[_unit] spawn NIC_GRP_fnc_AddActionGRP;
-}, true] call CBA_fnc_addClassEventHandler;
+["Air", "init", {_this spawn NIC_GRP_fnc_AddActionGRP}, true] call CBA_fnc_addClassEventHandler;
 
-["CAManBase", "GetOutMan", {
-	params ["_unit"];
-	[_unit, "NIC_actionID_GRP"] spawn NIC_GRP_fnc_RemoveAction;
-}, true] call CBA_fnc_addClassEventHandler;
+
+// ["Air", "init", {_this spawn NIC_GRP_fnc_AddActionGRP}, true] call CBA_fnc_addClassEventHandler; // adds init event to all air vehicles; has to be run preinit!
+
+// ["CAManBase", "GetInMan", {
+	// params ["_unit"];
+	// [_unit] spawn NIC_GRP_fnc_AddActionGRP;
+// }, true] call CBA_fnc_addClassEventHandler;
+
+// ["CAManBase", "GetOutMan", {
+	// params ["_unit"];
+	// [_unit, "NIC_actionID_GRP"] spawn NIC_GRP_fnc_RemoveAction;
+// }, true] call CBA_fnc_addClassEventHandler;
 
 ["CAManBase", "Take", {
 	params ["_unit"];
@@ -68,5 +73,9 @@ NIC_GRP_vehicles = [
 [missionNamespace, "arsenalClosed", {
 	{[_x] spawn NIC_GRP_fnc_AddActionAttachParachute;} forEach allPlayers;
 }] call BIS_fnc_addScriptedEventHandler;
+
+// ["Air", "init", {_this call NIC_GRP_fnc_AddActionGRP}, true] call CBA_fnc_addClassEventHandler; // adds init event to all air vehicles; has to be run preinit!
+
+
 
 // diag_log formatText ["%1%2%3%4%5%6%7", time, "s  NIC_GRP_fnc_GRPInit performed"];

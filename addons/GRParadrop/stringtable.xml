@@ -82,8 +82,8 @@
 			<German>ACHTUNG!</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_ATTENTION2">
-			<Original>Cargo ropes of loads with an attached vehicle parachute have to be at least 30 m long.</Original>
-			<German>Lastseile von Ladungen mit einem daran befestigten Fahrzeugfallschirm müssen mindestens 30 m lang sein.</German>
+			<Original>Cargo ropes of loads with an attached vehicle parachute have to be at least 35 m long.</Original>
+			<German>Lastseile von Ladungen mit einem daran befestigten Fahrzeugfallschirm müssen mindestens 35 m lang sein.</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_SECURITY_FACTOR">
 			<Original>Automatic Deploy Height</Original>

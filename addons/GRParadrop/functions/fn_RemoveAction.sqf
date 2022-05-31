@@ -28,4 +28,4 @@ _object removeAction _actionID;
 _object setVariable [_savedAction, nil];
 // };
 
-// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_RemoveAction)		unit: ", name _object];
+// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_RemoveAction)		unit: ", name _object, " _savedAction: ", _savedAction];

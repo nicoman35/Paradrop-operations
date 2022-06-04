@@ -21,8 +21,6 @@ if (isNull _object || _savedAction == "") exitWith {};
 if !(local _object) exitWith {_this remoteExec [NIC_GRP_fnc_RemoveAction, _object]};
 if (!alive _object) exitWith {};
 if (isNil{_object getVariable _savedAction}) exitWith {};
-// private _actionID = _object getVariable [_savedAction, -1];
-// if (_savedAction < 0) exitWith {};
 private _actionID = _object getVariable _savedAction;
 _object removeAction _actionID;
 _object setVariable [_savedAction, nil];

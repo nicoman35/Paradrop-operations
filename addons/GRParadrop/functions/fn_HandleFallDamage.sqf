@@ -20,7 +20,7 @@ params [["_vehicle", objNull]];
 if (isNull _vehicle || !alive _vehicle) exitWith {};
 private ["_velocity"];
 
-// _vehicle setPos (getPos _vehicle vectorAdd [0 ,0, 500]);
+// _vehicle setPos (getPos _vehicle vectorAdd [0 ,0, 1500]);
 // _velocity = velocity _vehicle;
 // private _vx = 35 - random 70;
 // private _vy = 35 - random 70;

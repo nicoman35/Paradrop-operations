@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_VehParaDeployControl
 	Version: 		1.0
-	Edited Date: 	29.05.2022
+	Edited Date: 	04.06.2022
 	
 	Description:
 		Control and deploy vehicle parachute
@@ -40,9 +40,9 @@ do {
 };
 // diag_log formatText ["%1%2%3%4%5%6", time, "s (NIC_GRP_fnc_VehParaDeployControl)	 FALL DETECTED"];
 
-if (isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) exitWith {};		// Exit, if no attached vehicle parachute found
+if (isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) exitWith {};													// Exit, if no attached vehicle parachute found
 
-_vehicle spawn NIC_GRP_fnc_HandleFallDamage;									// Iniciate damage control
+_vehicle spawn NIC_GRP_fnc_HandleFallDamage;																				// Iniciate damage control
 
 private ["_velocity", "_t"];
 
@@ -52,14 +52,14 @@ if (NIC_GRP_deployOverride) then {	_deployHeight = NIC_GRP_vehicleParachuteDeplo
 
 // Control fall speed and height until vehicle is lower then deploy height
 private _inflatingTime = 1.5;
-private _massFactor = (getMass _vehicle)^(1/6);
+private _massFactor = (getMass _vehicle)^(1/6);																				// x^1/y = y root x
 // diag_log formatText ["%1%2%3%4%5%6%7", time, "s (NIC_GRP_fnc_VehParaDeployControl)  NIC_GRP_securityFactor: ", NIC_GRP_securityFactor];
 while {alive _vehicle && getPos _vehicle #2 > _deployHeight} do {
 	_velocity = velocity _vehicle;
 	if (_velocity #2 < -NIC_GRP_maxFallSpeed) then {
 		_velocity set [2, -NIC_GRP_maxFallSpeed];
 		_vehicle setVelocity _velocity;
-	};
+	};																														// falling vehicles accelerate to ridiculous speeds; cap that speed at about 450 km/h 
 	if (!NIC_GRP_deployOverride) then {
 		// hintSilent formatText ["%1%2%3%4%5%6%7", " speed: ", abs(_velocity #2)];		
 		_t = -(10 - abs(_velocity #2)) / (18 - _massFactor);  																// t = (v - v0) / a; time vehicle would need to reduce current fall speed to 10 m/s
@@ -94,12 +94,13 @@ private _height = getPos _vehicle #2;
 
 // Simulate fall braking after parachute opening
 sleep _inflatingTime; 																										// parachute inflating phase
+// _velocity = velocity _parachute;
 private _sleep = 0.05;
 while {_velocity #2 < -10} do {
 	if (abs(_velocity #0) > 5) then {
 		if (_velocity #0 > 0) exitWith {_velocity set [0, -(18 - _massFactor) * _sleep + _velocity #0]};
 		_velocity set [0, (18 - _massFactor) * _sleep + _velocity #0];
-	};																														// horrizontal brake x axis (v = a · t + Xv0)									// horrizontal brake x axis (v = a · t + Xv0)
+	};																														// horrizontal brake x axis (v = a · t + Xv0)	
 	if (abs(_velocity #1) > 5) then {
 		if (_velocity #1 > 0) exitWith {_velocity set [1, -(18 - _massFactor) * _sleep + _velocity #1]};
 		_velocity set [1, (18 - _massFactor) * _sleep + _velocity #1];

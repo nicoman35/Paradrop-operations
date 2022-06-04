@@ -20,7 +20,6 @@ params [["_unit", objNull], ["_vehicle", objNull]];
 if (isNull _unit || isNull _vehicle) exitWith {false};
 if !(local _unit) exitWith {_this remoteExecCall [NIC_GRP_fnc_IsUnitCopilot, _unit]};
 if (!alive _unit) exitWith {false};
-// if (isNull _unit || !alive _unit || isNull _vehicle) exitWith {false};
 private ["_trt"];
 private _cfg = configFile >> "CfgVehicles" >> typeOf (_vehicle);
 private _trts = _cfg >> "turrets";

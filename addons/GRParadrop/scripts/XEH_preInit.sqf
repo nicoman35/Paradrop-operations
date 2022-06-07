@@ -20,11 +20,12 @@
 	[localize "STR_NIC_GRP_SECURITY_FACTOR", localize "STR_NIC_GRP_SECURITY_FACTOR_TIP"],	
 	[localize "STR_NIC_GRP_TITLE", localize "STR_NIC_GRP_DEPLOY_SUB"],
 	[		
-		[1.03, 1.05, 1.07],																		// list setting return values
+		[1.03, 1.05, 1.07, 1.15],																// list setting return values
 		[
 			format[localize "STR_NIC_GRP_DEPLOY_FACTOR0"], 
 			format[localize "STR_NIC_GRP_DEPLOY_FACTOR1"], 
-			format[localize "STR_NIC_GRP_DEPLOY_FACTOR2"]
+			format[localize "STR_NIC_GRP_DEPLOY_FACTOR2"],
+			format[localize "STR_NIC_GRP_DEPLOY_FACTOR3"]
 		],																						// list setting choices
 		1																						// list setting default choice (array index)
 	],

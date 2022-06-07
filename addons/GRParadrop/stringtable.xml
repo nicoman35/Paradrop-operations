@@ -105,5 +105,9 @@
 			<Original>Safe</Original>
 			<German>Sicher</German>
 		</Key>
+		<Key ID="STR_NIC_GRP_DEPLOY_FACTOR3">
+			<Original>Super Safe</Original>
+			<German>Supersicher</German>
+		</Key>
 	</Package>
 </Project>

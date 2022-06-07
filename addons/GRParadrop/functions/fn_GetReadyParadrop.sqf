@@ -51,8 +51,7 @@ private _count = 0;
 		_index = _x addEventHandler ["GetOutMan", {
 			params ["_unit"];
 			_unit removeEventHandler ["GetOutMan", _thisEventHandler];
-			_unit setVariable ["NIC_grpEventGetOut", nil]; 
-			// [_unit] spawn NIC_GRP_fnc_HaloGRP;
+			_unit setVariable ["NIC_grpEventGetOut", nil];
 			[_unit, _vehicle] spawn NIC_GRP_fnc_HaloGRP;
 		}];
 		_x setVariable ["NIC_grpEventGetOut", _index]; 

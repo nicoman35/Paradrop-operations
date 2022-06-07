@@ -1,8 +1,8 @@
 /*
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_HaloGRP
-	Version: 		1.0
-	Edited Date: 	31.05.2022
+	Version: 		1.1
+	Edited Date: 	07.06.2022
 	
 	Description:
 		Perform and control paradrop of one unit from an airborne vehicle
@@ -41,6 +41,7 @@ if (getPos _unit #2 > 20) then {
 
 	private _safePos = [_unit] call NIC_GRP_fnc_GetSafePositionGRP;
 	if (isNil "_safePos") then {_safePos = getpos _unit};
+	_unit doMove _safePos;
 
 	private _atan	= 100;
 	private _targetAngle = 30;																// target elevation angle from safe position to unit. lower values -> later parachute deployment, flatter glide trajectory
@@ -89,4 +90,7 @@ if (_unit getVariable "NIC_hasBackpackOnChest") then {
 	[_unit] call bocr_main_fnc_actionOnBack;
 	_unit setVariable ["NIC_hasBackpackOnChest", nil];
 };
+
+waitUntil {sleep 1; moveToCompleted _unit};
+doStop _unit;
 // };

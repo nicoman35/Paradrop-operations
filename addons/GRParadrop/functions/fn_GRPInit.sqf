@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_GRPInit
 	Version: 		1.0
-	Edited Date: 	04.06.2022
+	Edited Date: 	07.06.2022
 	
 	Description:
 		Initiate addon, define CBA variables, add init event handler to all infantry units
@@ -38,6 +38,13 @@ if (isNil "NIC_GRP_vehicleParachuteClasses") then {NIC_GRP_vehicleParachuteClass
 NIC_GRP_vehicles = [
 	["UGV_01_base_F", [0.7, 0.7, -0.2]],
 	["B_Truck_01_medical_F", [-0.25, 1.8, 1.1]]
+];
+
+// Vehicle kind list for notice on how long ropes are to be when vehicle parachute is attached to load [vehicle kind, rope length]
+NIC_GRP_ropeLength = [
+	["Heli_Transport_03_base_F", 35],
+	["VTOL_01_base_F", 60],
+	["VTOL_02_base_F", 30]
 ];
 
 ["CAManBase", "init", {

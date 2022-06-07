@@ -33,7 +33,12 @@ while {
 	!(isNull ropeAttachedTo _vehicle))} 
 do {
 	if (!(isNull ropeAttachedTo _vehicle) && _hint < 2) then {
-		hint composeText [localize "STR_NIC_GRP_ATTENTION", lineBreak, localize "STR_NIC_GRP_ATTENTION2"];
+		private _length = 35;
+		{
+			if (_vehicle isKindOf _x #0) exitWith {_length = _x #1};
+		} forEach NIC_GRP_ropeLength;
+		// hint composeText [localize "STR_NIC_GRP_ATTENTION", lineBreak, localize "STR_NIC_GRP_ATTENTION2"];
+		hint composeText [localize "STR_NIC_GRP_ATTENTION", lineBreak, format[localize "STR_NIC_GRP_ATTENTION2", _length]];
 		_hint = _hint + 1;
 	};
 	sleep 1;
@@ -66,7 +71,7 @@ while {alive _vehicle && getPos _vehicle #2 > _deployHeight} do {
 		_v = abs(_velocity #2);
 		_t = (_v0 - _v) / -_a;  																								// t = (v - v0) / a; time vehicle would need to reduce current fall speed to 10 m/s
 		_fpsInfluence = (90 / diag_fps * 1.2) max 1;	
-		if (isMultiplayer) then {_fpsInfluence = _fpsInfluence * 1.5};
+		if (isMultiplayer) then {_fpsInfluence = _fpsInfluence * 1.4};
 		_deployHeight = (0.5 * _a * _t^2 + _v0 * _t + _v * _inflatingTime) * NIC_GRP_securityFactor^_fpsInfluence;				// height = braking distance (0,5 · a · t^2 + _v0 * _t) + inflating distance (v · tInf)
 	};
 	// sleep 0.01;

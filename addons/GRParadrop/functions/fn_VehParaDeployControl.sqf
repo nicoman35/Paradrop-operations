@@ -8,34 +8,34 @@
 		Control and deploy vehicle parachute
 	
 	Parameters:
-		_vehicle:		Object - vehicle deploying from airborne vehilce, defaults to objNull
+		_cargo:		Object - cargo being deployed from airborne vehilce, defaults to objNull
 	
 	Returns:
 		None
 */
 
 // NIC_GRP_fnc_VehParaDeployControl = {
-params [["_vehicle", objNull]];
-if (isNull _vehicle) exitWith {};
-if !(local _vehicle) exitWith {_this remoteExec [NIC_GRP_fnc_VehParaDeployControl, _vehicle]};
-if (!alive _vehicle) exitWith {};
+params [["_cargo", objNull]];
+if (isNull _cargo) exitWith {};
+if !(local _cargo) exitWith {_this remoteExec [NIC_GRP_fnc_VehParaDeployControl, _cargo]};
+if (!alive _cargo) exitWith {};
 
 // Vehicle parachute is attached to vehicle, wait for vehicle free fall
 private _hint = 0;
 while {
-	alive _vehicle &&
-	!(isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) &&
-	(isTouchingGround _vehicle ||
-	vehicle _vehicle != _vehicle ||
-	getPos _vehicle #2 < 5 ||
-	!(isNull attachedTo _vehicle) ||
-	velocity _vehicle #2 > -10 ||
-	!(isNull ropeAttachedTo _vehicle))} 
+	alive _cargo &&
+	!(isNil {_cargo getVariable "NIC_GRP_parachuteHolder"}) &&
+	(isTouchingGround _cargo ||
+	vehicle _cargo != _cargo ||
+	getPos _cargo #2 < 5 ||
+	!(isNull attachedTo _cargo) ||
+	velocity _cargo #2 > -10 ||
+	!(isNull ropeAttachedTo _cargo))} 
 do {
-	if (!(isNull ropeAttachedTo _vehicle) && _hint < 2) then {
+	if (!(isNull ropeAttachedTo _cargo) && _hint < 2) then {
 		private _length = 35;
 		{
-			if (_vehicle isKindOf _x #0) exitWith {_length = _x #1};
+			if ((ropeAttachedTo _cargo) isKindOf _x #0) exitWith {_length = _x #1};
 		} forEach NIC_GRP_ropeLength;
 		// hint composeText [localize "STR_NIC_GRP_ATTENTION", lineBreak, localize "STR_NIC_GRP_ATTENTION2"];
 		hint composeText [localize "STR_NIC_GRP_ATTENTION", lineBreak, format[localize "STR_NIC_GRP_ATTENTION2", _length]];
@@ -45,27 +45,27 @@ do {
 };
 // diag_log formatText ["%1%2%3%4%5%6", time, "s (NIC_GRP_fnc_VehParaDeployControl)	 FALL DETECTED"];
 
-if (isNil {_vehicle getVariable "NIC_GRP_parachuteHolder"}) exitWith {};														// Exit, if no attached vehicle parachute found
+if (isNil {_cargo getVariable "NIC_GRP_parachuteHolder"}) exitWith {};														// Exit, if no attached vehicle parachute found
 
-_vehicle spawn NIC_GRP_fnc_HandleFallDamage;																					// Iniciate damage control
+_cargo spawn NIC_GRP_fnc_HandleFallDamage;																					// Iniciate damage control
 
 private ["_velocity", "_v", "_t", "_fpsInfluence"];
 
 // Vehicle is now free falling, let's calculate parachute deployment height
 private _deployHeight = 0;
-if (NIC_GRP_deployOverride) then {	_deployHeight = NIC_GRP_vehicleParachuteDeployHeight};
+if (NIC_GRP_deployOverride) then {	_deployHeight = NIC_GRP_cargoParachuteDeployHeight};
 
 // Control fall speed and height until vehicle is lower then deploy height
 private _inflatingTime = 1;																										// time parachute needs to inflate (s)
-private _massFactor = (getMass _vehicle)^(1/6);																					// x^1/y = y root x
+private _massFactor = (getMass _cargo)^(1/6);																					// x^1/y = y root x
 private _a = 18 - _massFactor;																									// acceleration (m/s^2)
 private _v0 = 10;																												// end velocity (m/s)
-// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_VehParaDeployControl)  NIC_GRP_securityFactor: ", NIC_GRP_securityFactor, ", _a: ", _a, ", _mass: ", getMass _vehicle, ", _massFactor: ", _massFactor];
-while {alive _vehicle && getPos _vehicle #2 > _deployHeight} do {
-	_velocity = velocity _vehicle;
+// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_VehParaDeployControl)  NIC_GRP_securityFactor: ", NIC_GRP_securityFactor, ", _a: ", _a, ", _mass: ", getMass _cargo, ", _massFactor: ", _massFactor];
+while {alive _cargo && getPos _cargo #2 > _deployHeight} do {
+	_velocity = velocity _cargo;
 	if (_velocity #2 < -NIC_GRP_maxFallSpeed) then {
 		_velocity set [2, -NIC_GRP_maxFallSpeed];
-		_vehicle setVelocity _velocity;
+		_cargo setVelocity _velocity;
 	};																															// falling vehicles accelerate to ridiculous speeds; cap that speed at about 470 km/h 
 	if (!NIC_GRP_deployOverride) then {
 		_v = abs(_velocity #2);
@@ -85,24 +85,24 @@ while {alive _vehicle && getPos _vehicle #2 > _deployHeight} do {
 // diag_log formatText ["%1%2%3%4%5%6%7%8", "fps: ", diag_fps, ", braking distance: ", 0.5 * _a * _t^2 + _v0 * _t, ", infating distance: ", _v * _inflatingTime, ", securityF: ", NIC_GRP_securityFactor^_fpsInfluence];
 // diag_log formatText ["%1%2%3%4%5%6%7", time, "s (NIC_GRP_fnc_VehParaDeployControl)  _deployHeight: ", _deployHeight]; 
 
-if (!alive _vehicle || getPos _vehicle #2 < 10) exitWith {};																	// Exit, if vehicle no longer alive or near ground
-if !(_vehicle call NIC_GRP_fnc_DetachVehicleParachute) exitWith {};															// Detach vehicle parachute; exit, if parachute has been somehow removed from vehicle during fall
+if (!alive _cargo || getPos _cargo #2 < 10) exitWith {};																	// Exit, if vehicle no longer alive or near ground
+if !(_cargo call NIC_GRP_fnc_DetachVehicleParachute) exitWith {};															// Detach vehicle parachute; exit, if parachute has been somehow removed from vehicle during fall
 
 // Create parachute and attach vehicle to it
 private _class = format [
 	"%1_parachute_02_F", 
-	toString [(toArray faction _vehicle) #0]
+	toString [(toArray faction _cargo) #0]
 ];
 private _parachute = createVehicle [_class, [0, 0, 0], [], 0, "CAN_COLLIDE"];
 if (isNull _parachute) then {_parachute = createVehicle ["B_parachute_02_F", [0, 0, 0], [], 0, "CAN_COLLIDE"]};
 
-_velocity = velocity _vehicle;
-_parachute setDir getDir _vehicle;
-_parachute setPos getPos _vehicle;
+_velocity = velocity _cargo;
+_parachute setDir getDir _cargo;
+_parachute setPos getPos _cargo;
 _parachute setVelocity _velocity;
-_vehicle attachTo [_parachute, [0, 0, 1]];
-private _height = getPos _vehicle #2;
-// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_VehParaDeployControl)  parachute deploy initiated.  _velocity at deploy: ", _velocity, ", height at deploy: ", _height, " m, mass: ", getMass _vehicle];
+_cargo attachTo [_parachute, [0, 0, 1]];
+private _height = getPos _cargo #2;
+// diag_log formatText ["%1%2%3%4%5%6%7%8%9", time, "s (NIC_GRP_fnc_VehParaDeployControl)  parachute deploy initiated.  _velocity at deploy: ", _velocity, ", height at deploy: ", _height, " m, mass: ", getMass _cargo];
 
 private _sleep = 0.05;
 private _fullyOpen = time + _inflatingTime;																						// parachute inflating phase
@@ -119,22 +119,22 @@ while {_velocity #2 < -_v0} do {
 		_velocity set [2, _a * _sleep + _velocity #2]; 																			// vertical brake z axis (v = a · t + Zv0)
 	};
 	_parachute setVelocity _velocity;
-	if (getPos _vehicle #2 < 4 || !alive _vehicle) exitWith {};
+	if (getPos _cargo #2 < 4 || !alive _cargo) exitWith {};
 	uiSleep _sleep;
 	// sleep _sleep;
 };
-diag_log formatText ["%1%2%3%4%5%6%7%8", time, "s (NIC_GRP_fnc_VehParaDeployControl)  parachute break completed.  speed parachute: ", abs(velocity _parachute #2), " m/s , brake distance: ", _height - getPos _vehicle #2, " m"];
+diag_log formatText ["%1%2%3%4%5%6%7%8", time, "s (NIC_GRP_fnc_VehParaDeployControl)  parachute break completed.  speed parachute: ", abs(velocity _parachute #2), " m/s , brake distance: ", _height - getPos _cargo #2, " m"];
 
-waitUntil {getPos _vehicle #2 < 4 || !alive _vehicle};																			// Wait for vehicle to glide near ground
+waitUntil {getPos _cargo #2 < 4 || !alive _cargo};																			// Wait for vehicle to glide near ground
 _velocity = velocity _parachute;
-detach _vehicle;																												// Detach vehicle from parachute
-_vehicle setVelocity _velocity;
-_vehicle disableCollisionWith _parachute;
+detach _cargo;																												// Detach vehicle from parachute
+_cargo setVelocity _velocity;
+_cargo disableCollisionWith _parachute;
 
 // Failsafe for not ending up with vehicles beneath terrain level
-if (getPosATL _vehicle #2 < 0) then {
-	private _pos = getpos _vehicle; 
+if (getPosATL _cargo #2 < 0) then {
+	private _pos = getpos _cargo; 
 	_pos set [2, 0];
-	_vehicle setPos _pos;
+	_cargo setPos _pos;
 };
 // };

@@ -35,7 +35,7 @@ if (isNil "NIC_GRP_vehicleParachuteClasses") then {NIC_GRP_vehicleParachuteClass
 ]};																																		// object classes vehicle parachute is allowed being attached to
 
 // Vehicle list for vehicle parachute attachment offsets in format [vehicle type, [x, y, z]]
-NIC_GRP_vehicles = [
+NIC_GRP_cargos = [
 	["UGV_01_base_F", [0.7, 0.7, -0.2]],
 	["B_Truck_01_medical_F", [-0.25, 1.8, 1.1]]
 ];

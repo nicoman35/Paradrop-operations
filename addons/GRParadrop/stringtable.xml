@@ -46,11 +46,19 @@
 			<German>Fahrzeugfallschirm Entfernen</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_DEPLOY_HEIGHT">
-			<Original>Vehicle Parachute Deploy Height</Original>
-			<German>Fahrzeugfallschirm Auslösehöhe</German>
+			<Original>Parachute Opening Height</Original>
+			<German>Fallschirm Auslösehöhe</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_DEPLOY_HEIGHT_TIP">
-			<Original>Height in meters, at which the vehicle parachute will be deployed. Only valid, if 'Override Automatic Deploy Height' is checked.</Original>
+			<Original>Height in meters, at which parachute will be opened. Only valid, if 'Override Automatic Opening Height' is checked.</Original>
+			<German>Höhe in Meter, in welcher der Fallschirm ausgelöst wird. Nur gülitg, wenn 'Automatische Auslösehöhe Aufheben' ausgewählt ist.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_CARGO_DEPLOY_HEIGHT">
+			<Original>Vehicle Parachute Opening Height</Original>
+			<German>Fahrzeugfallschirm Auslösehöhe</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_CARGO_DEPLOY_HEIGHT_TIP">
+			<Original>Height in meters, at which the vehicle parachute will be opened. Only valid, if 'Override Automatic Opening Height' is checked.</Original>
 			<German>Höhe in Meter, in welcher der Fahrzeugfallschirm ausgelöst wird. Nur gülitg, wenn 'Automatische Auslösehöhe Aufheben' ausgewählt ist.</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_TOO_LIGHT">
@@ -70,11 +78,19 @@
 			<German>Infanterie Paradrop Einstellungen</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_OVERIDE">
-			<Original>Override Automatic Deploy Height</Original>
+			<Original>Override Automatic Opening Height</Original>
 			<German>Automatische Auslösehöhe Aufheben</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_OVERIDE_TIP">
-			<Original>Override automatic calculation of parachute deployment height with value listed below.</Original>
+			<Original>Override automatic calculation of parachute opening height with value listed below.</Original>
+			<German>Automatische Berrechnung der Auslösehöhe mit unten stehendem Wert überschreiben.</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_CARGO_OVERIDE">
+			<Original>Override Automatic Opening Height</Original>
+			<German>Automatische Auslösehöhe Aufheben</German>
+		</Key>
+		<Key ID="STR_NIC_GRP_CARGO_OVERIDE_TIP">
+			<Original>Override automatic calculation of parachute opening height with value listed below.</Original>
 			<German>Automatische Berrechnung der Auslösehöhe mit unten stehendem Wert überschreiben.</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_ATTENTION">
@@ -86,11 +102,11 @@
 			<German>Dieses Fahrzeug benötigt Lastseile von Ladungen mit einem daran befestigten Fahrzeugfallschirm mit einer Länge von mindestens %1 m.</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_SECURITY_FACTOR">
-			<Original>Automatic Deploy Height</Original>
+			<Original>Automatic Opening Height</Original>
 			<German>Automatische Auslösehöhe</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_SECURITY_FACTOR_TIP">
-			<Original>Type of automatic calculation of parachute deployment height.</Original>
+			<Original>Type of automatic calculation of parachute opening height.</Original>
 			<German>Art der automatischen Berrechnung der Auslösehöhe.</German>
 		</Key>
 		<Key ID="STR_NIC_GRP_DEPLOY_FACTOR0">

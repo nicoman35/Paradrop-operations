@@ -24,8 +24,8 @@ if (isNil "NIC_GRP_attachMinMass") then {NIC_GRP_attachMinMass 								= 250};		
 if (isNil "NIC_GRP_attachMaxMass") then {NIC_GRP_attachMaxMass 								= 80000};								// maximum mass a vehicle has to have for being able to attach the vehicle parachute (kg)
 if (isNil "NIC_GRP_vehicleParachuteDeployHeight") then {NIC_GRP_vehicleParachuteDeployHeight 	= 200};									// height at which vehicle parachute is to be deployed (m)
 if (isNil "NIC_GRP_maxFallSpeed") then {NIC_GRP_maxFallSpeed 									= 130};									// max fall speed of vehicles (m/s)
-if (isNil "NIC_GRP_deployOverride") then {NIC_GRP_deployOverride 								= false};								// override automatic calculation of parachute deployment height
-if (isNil "NIC_GRP_securityFactor") then {NIC_GRP_securityFactor 								= 1.05};								// factor times (calculation of needed distance for vehicle parachute to break a load)
+if (isNil "NIC_GRP_cargoDeployOverride") then {NIC_GRP_cargoDeployOverride 								= false};								// override automatic calculation of parachute deployment height
+if (isNil "NIC_GRP_cargoSecurityFactor") then {NIC_GRP_cargoSecurityFactor 								= 1.05};								// factor times (calculation of needed distance for vehicle parachute to break a load)
 if (isNil "NIC_GRP_vehicleParachuteClasses") then {NIC_GRP_vehicleParachuteClasses			= [
 	"Car", 
 	"Tank", 

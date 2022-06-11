@@ -2,7 +2,7 @@
 	Author: 		Nicoman
 	Function: 		NIC_GRP_fnc_ParachuteGlideGRP
 	Version: 		1.0
-	Edited Date: 	31.05.2022
+	Edited Date: 	10.06.2022
 	
 	Description:
 		Simulate steered flight of a parachute controlled by an AI pilot
@@ -42,7 +42,7 @@ private [
 	"_glideIndex",
 	"_sinkIndex",
 	"_maxSpeed",
-	"_nearestObject",
+	"_nearObjects",
 	"_distance"
 ];
 
@@ -73,19 +73,20 @@ while {
 		_parachute setVariable ["setPitch", _newPitch];
 		_parachute setVariable ["nextPitch", time + 3];
 		_maxSpeed = _defaultMaxSpeed;
-		if (abs(_direction - (_parachute getRelDir _destination)) > 30) then {				// reduce speed limit when not flying in direction of destination
+		if (abs(_direction - (_parachute getRelDir _destination)) > 30) then {										// reduce speed limit when not flying in direction of destination
 			_maxSpeed = 30;
 		};
-		if ((_distance2D < _defaultMaxSpeed || getPos _parachute #2 < 20) && !(surfaceIsWater _position)) then {	// reduce speed limit near target position
+		if ((_distance2D < _defaultMaxSpeed || _position #2 < 15) && !(surfaceIsWater _position)) then {	// reduce speed limit near target position
 			_maxSpeed = (_distance2D min 20) min getPos _parachute #2;
 		};
 	};
 
-	_nearestObject = nearestObject [_parachute, "ParachuteBase"];
-	_distance = _parachute distance _nearestObject;
-	if (getPos _parachute #2 > 3 && _distance > 15) then {_pilot allowDamage true};
-	if (getPos _parachute #2 < 3 || _distance < 15) then {_pilot allowDamage false};
+	_nearObjects = _parachute nearObjects ["ParachuteBase", 20];
+	_nearObjects = _nearObjects - [_parachute];
+	if (getPos _parachute #2 > 3 && (count _nearObjects < 0)) then {_pilot allowDamage true};
+	if (getPos _parachute #2 < 3 || (count _nearObjects > 0)) then {_pilot allowDamage false};
 	
+	_height			= _position #2;
 	_pitch 			= tan _newPitch;
 	_bank 			= tan - _angle;
 	_pitchBank 		= vectorNormalized [_pitch * cos (90 - _direction) - _bank * sin (90 - _direction), _pitch * sin (90 - _direction) + _bank * cos (90 - _direction), 1];
@@ -93,23 +94,23 @@ while {
 	_vectorDiff		= VectorNormalized _vectorDiff vectorMultiply (vectorMagnitude _vectorDiff min 0.5);
 	_newVectorUp	= _vectorUp vectorAdd (_vectorDiff vectorMultiply 0.01);
 	_velocity 		= velocityModelSpace _parachute;
-	_height			= _position select 2;
-	_atan			= atan (_height / _distance2D);											// elevation angle from destination to parachute
+	_atan			= atan (_height / _distance2D);																	// elevation angle from destination to parachute
 	_coeffXY		= 0;
 	_coeffZ			= 0;		
-	if (_atan > 25 && _distance2D < 150) then {												// parachute is tweaked to velocity, if elevation angle is low, or not near desination
+	// if (_atan > 25 && _distance2D < 150) then {																	// parachute is tweaked to velocity, if elevation angle is low, or not near desination
+	if (_atan < 25 || _distance2D > 150) then {																		// parachute is tweaked to velocity, if elevation angle is low, or not near desination
 		_coeffXY = (0.6 * (_atan / 45)) min 0.6;
 		_coeffZ = _coeffXY * 3;
 	};
 	_glideIndex	= _defaultGlideIndex + _coeffXY;
 	_sinkIndex	= _defaultSinkIndex - _coeffZ;
 
-	if (speed _parachute > _maxSpeed) then {												// let's not exceed speed limit
-		_velocity set [0, ((_velocity #0 * 0.8) + 1/10 * _angle) / _glideIndex];			// horizontal velocity
-		_velocity set [1, ((_velocity #1 * 0.8) + 1/2 * _pitchAngle) / _glideIndex];		// horizontal velocity
+	if (speed _parachute > _maxSpeed || _height < 10) then {														// let's not exceed speed limit
+		_velocity set [0, ((_velocity #0 * 0.8) + 1/10 * _angle) / _glideIndex];									// horizontal velocity
+		_velocity set [1, ((_velocity #1 * 0.8) + 1/2 * _pitchAngle) / _glideIndex];								// horizontal velocity
 	};
 	_velocity = _parachute vectorModelToWorldVisual _velocity;
-	_velocity set [2, (_velocity #2 * 3 - 5) / _sinkIndex];									// vertical velocity
+	_velocity set [2, (_velocity #2 * 3 - 5) / _sinkIndex];															// vertical velocity
 
 	_parachute setVelocity _velocity;
 	_parachute setVectorDir ([_vectorDir, -1 / 75 * _angle * accTime] call BIS_fnc_rotateVector2D);
